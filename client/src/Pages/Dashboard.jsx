@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [currentFolder, setCurrentFolder] = React.useState({
     folderName: "Root",
-    folderId: user?.userId,
+    folderId: JSON.parse(sessionStorage.getItem("User")).userId,
   });
   const [newFolder, setNewFolder] = React.useState({
     folderName: "",
@@ -125,7 +125,6 @@ const Dashboard = () => {
       }
     }
   };
-
   React.useEffect(() => {
     // get user images and folders
     //set images and folders
@@ -159,23 +158,6 @@ const Dashboard = () => {
   }, []);
 
   React.useEffect(() => {
-    axios
-      .get(
-        `${process.env.REACT_APP_URL}searchImage?searchTerm=${searchQuery}&userId=${user?.userId}`,
-        {
-          headers: {
-            "x-access-token": sessionStorage.getItem("authToken"),
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data.status == 200) {
-          setImages(res.data.images);
-        }
-      });
-  }, [searchQuery]);
-
-  React.useEffect(() => {
     // get currentFolders files
     console.log(currentFolder);
     axios
@@ -204,6 +186,25 @@ const Dashboard = () => {
         }
       });
   }, [currentFolder]);
+  React.useEffect(() => {
+    if (searchQuery !== "") {
+      axios
+        .get(
+          `${process.env.REACT_APP_URL}searchImage?searchTerm=${searchQuery}&userId=${user?.userId}`,
+          {
+            headers: {
+              "x-access-token": sessionStorage.getItem("authToken"),
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.status == 200) {
+            setImages(res.data.images);
+          }
+        });
+    }
+  }, [searchQuery]);
+
   return (
     <>
       <ResponsiveAppBar

@@ -218,7 +218,7 @@ function ResponsiveAppBar(props) {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar>
-                  {JSON.parse(sessionStorage.getItem("User")).name[0]}
+                  {JSON.parse(sessionStorage?.getItem("User"))?.name[0]}
                 </Avatar>
               </IconButton>
             </Tooltip>
