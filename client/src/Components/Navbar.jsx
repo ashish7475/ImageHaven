@@ -8,6 +8,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import AddToDriveIcon from "@mui/icons-material/AddToDrive";
 import Typography from "@mui/material/Typography";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
@@ -21,6 +22,7 @@ import {
   FormLabel,
   InputLabel,
   Modal,
+  TextField,
 } from "@mui/material";
 import { Input } from "./Components";
 import Basic from "./Dropzone";
@@ -129,8 +131,16 @@ function ResponsiveAppBar(props) {
                   setTypeofBtn("Create Folder");
                 }}
               >
-                <CreateNewFolderIcon sx={{ mx: 1 }} />
+                <KeyboardBackspaceIcon sx={{ mx: 1 }} />
                 <Typography textAlign="center">Create New Folder</Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  props.handleGoBack();
+                }}
+              >
+                <CreateNewFolderIcon sx={{ mx: 1 }} />
+                <Typography textAlign="center">Back</Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -184,6 +194,24 @@ function ResponsiveAppBar(props) {
             >
               <CreateNewFolderIcon sx={{ mx: 1 }} /> Create New Folder
             </Button>
+            {props.currentFolder.folderName !== "Root" ? (
+              <Button
+                onClick={() => {
+                  props.handleGoBack();
+                }}
+                sx={{
+                  my: 2,
+
+                  color: "white",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <KeyboardBackspaceIcon sx={{ mx: 1 }} /> Back
+              </Button>
+            ) : (
+              <></>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -231,7 +259,7 @@ function ResponsiveAppBar(props) {
                   aria-describedby="my-helper-text"
                   placeholder="Folder Name"
                   name="folderName"
-                  value={props.newFolder.folderName}
+                  value={props.newFolder?.folderName}
                   onChange={(e) => {
                     props.setNewFolder((prev) => ({
                       ...prev,

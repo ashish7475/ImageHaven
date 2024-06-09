@@ -37,7 +37,7 @@ const Login = () => {
 
     if (loginFormData.username !== "" && loginFormData.password !== "") {
       const data = await axios.post(
-        "http://localhost:5000/login",
+        `${process.env.REACT_APP_URL}login`,
         loginFormData
       );
       if (data.data.status === 200) {
@@ -50,7 +50,7 @@ const Login = () => {
         setTimeout(() => {
           navigate("/dashboard");
         }, 2000);
-        // console.log(data);
+        // (data);
       } else {
         NotificationManager.error(data.data.message);
       }
@@ -66,7 +66,7 @@ const Login = () => {
       signupFormData.username !== ""
     ) {
       const data = await axios.post(
-        "http://localhost:5000/signup",
+        `${process.env.REACT_APP_URL}signup`,
         signupFormData
       );
       if (data.data.status == 200) {

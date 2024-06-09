@@ -6,6 +6,7 @@ const ImageSchema = new mongoose.Schema({
   name: String,
   parentFolderId: String,
   userId: String,
+  path: String,
 });
 
 const Image = mongoose.model("Image", ImageSchema);

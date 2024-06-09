@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use("/uploads", express.static("uploads"));
 
 app.use((req, response, next) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,7 +38,7 @@ try {
       );
       console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
-      console.log(error);
+      error;
       process.exit(1);
     }
   };
@@ -48,5 +49,5 @@ try {
     });
   });
 } catch (error) {
-  console.log(error);
+  error;
 }
