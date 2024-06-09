@@ -101,7 +101,7 @@ export const handleGetParentFolder = async (req, res) => {
         message: "Parent retrieved",
         folder: {
           folderName: parent.folderName,
-          folderId: parent.folderId,
+          folderId: child.parentFolderId,
         },
       });
     }
