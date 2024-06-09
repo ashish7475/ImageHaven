@@ -91,6 +91,7 @@ export const handleGetParentFolder = async (req, res) => {
     const { currentFolderId, userId } = req.query;
     const child = await Folder.findOne({ userId, folderId: currentFolderId });
     console.log(child);
+    let parent;
     if (child.parentFolderId == userId) {
       res.send({ status: 202 });
     } else {
