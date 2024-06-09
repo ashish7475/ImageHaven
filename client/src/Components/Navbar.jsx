@@ -131,7 +131,8 @@ function ResponsiveAppBar(props) {
                   setTypeofBtn("Create Folder");
                 }}
               >
-                <KeyboardBackspaceIcon sx={{ mx: 1 }} />
+                <CreateNewFolderIcon sx={{ mx: 1 }} />
+
                 <Typography textAlign="center">Create New Folder</Typography>
               </MenuItem>
               <MenuItem
@@ -139,7 +140,7 @@ function ResponsiveAppBar(props) {
                   props.handleGoBack();
                 }}
               >
-                <CreateNewFolderIcon sx={{ mx: 1 }} />
+                <KeyboardBackspaceIcon sx={{ mx: 1 }} />
                 <Typography textAlign="center">Back</Typography>
               </MenuItem>
             </Menu>
