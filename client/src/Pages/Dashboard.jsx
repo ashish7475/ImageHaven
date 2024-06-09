@@ -32,21 +32,24 @@ const Dashboard = () => {
     }, 2000);
   };
   const handleGoBack = async () => {
+    console.log("HI");
     const response = await axios.get(
-      `${process.env.REACT_APP_URL}parent?userId=${user?.userId}&currentFolderId=${currentFolder.folderId}`,
+      `http://localhost:5000/parent?userId=${user?.userId}&currentFolderId=${currentFolder.folderId}`,
       {
         headers: {
           "x-access-token": sessionStorage.getItem("authToken"),
         },
       }
     );
+    console.log(response);
     if (response.data.status == 200) {
-      if (response.data.folder.folderId == user?.userId) {
-        setCurrentFolder({ folderName: "Root", folderId: user?.userId });
-      } else {
-        console.log(response.data.folder);
-        setCurrentFolder(response.data.folder);
-      }
+      console.log(response.data.folder);
+      setCurrentFolder(response.data.folder);
+    } else {
+      setCurrentFolder({
+        folderName: "Root",
+        folderId: JSON.parse(sessionStorage.getItem("User")).userId,
+      });
     }
   };
   const handleOpen = () => setOpen(true);

@@ -71,7 +71,6 @@ export const handleLogin = async (req, res) => {
 
 export const handleGetUserData = async (req, res) => {
   const { userId, parentFolderId } = req.query;
-  req.query;
 
   const folders = await Folder.find({ userId, parentFolderId });
   const images = await Image.find({ userId, parentFolderId });
@@ -91,22 +90,28 @@ export const handleGetParentFolder = async (req, res) => {
   try {
     const { currentFolderId, userId } = req.query;
     const child = await Folder.findOne({ userId, folderId: currentFolderId });
-    const parent = await Folder.findOne({
-      userId,
-      folderId: child.parentFolderId,
-    });
-    if (parent != null) {
-      res.send({
-        status: 200,
-        message: "Parent retrieved",
-        folder: {
-          folderName: parent.folderName,
-          folderId: child.parentFolderId,
-        },
+    console.log(child);
+    if (child.parentFolderId == userId) {
+      res.send({ status: 202 });
+    } else {
+      parent = await Folder.findOne({
+        userId,
+        folderId: child.parentFolderId,
       });
+
+      if (parent != null) {
+        res.send({
+          status: 200,
+          message: "Parent retrieved",
+          folder: {
+            folderName: parent.folderName,
+            folderId: child.parentFolderId,
+          },
+        });
+      }
     }
   } catch (error) {
-    error;
+    console.log(error);
   }
 };
 
@@ -142,6 +147,7 @@ export const handleCreateFolder = async (req, res) => {
   try {
     const { folderName, parentFolderId, userId } = req.body;
     const folderId = uuidv4();
+
     const exists = await Folder.findOne({ folderName, parentFolderId, userId });
     exists;
     if (exists == null) {
