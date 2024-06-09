@@ -44,6 +44,7 @@ const Dashboard = () => {
       if (response.data.folder.folderId == user?.userId) {
         setCurrentFolder({ folderName: "Root", folderId: user?.userId });
       } else {
+        console.log(response.data.folder);
         setCurrentFolder(response.data.folder);
       }
     }

@@ -90,15 +90,18 @@ export const handleGetUserData = async (req, res) => {
 export const handleGetParentFolder = async (req, res) => {
   try {
     const { currentFolderId, userId } = req.query;
-    const parent = await Folder.findOne({ userId, folderId: currentFolderId });
-    parent;
+    const child = await Folder.findOne({ userId, folderId: currentFolderId });
+    const parent = await Folder.findOne({
+      userId,
+      folderId: child.parentFolderId,
+    });
     if (parent != null) {
       res.send({
         status: 200,
         message: "Parent retrieved",
         folder: {
           folderName: parent.folderName,
-          folderId: parent.parentFolderId,
+          folderId: parent.folderId,
         },
       });
     }
