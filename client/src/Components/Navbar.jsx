@@ -135,14 +135,18 @@ function ResponsiveAppBar(props) {
 
                 <Typography textAlign="center">Create New Folder</Typography>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  props.handleGoBack();
-                }}
-              >
-                <KeyboardBackspaceIcon sx={{ mx: 1 }} />
-                <Typography textAlign="center">Back</Typography>
-              </MenuItem>
+              {props.currentFolder.folderName !== "Root" ? (
+                <MenuItem
+                  onClick={() => {
+                    props.handleGoBack();
+                  }}
+                >
+                  <KeyboardBackspaceIcon sx={{ mx: 1 }} />
+                  <Typography textAlign="center">Back</Typography>
+                </MenuItem>
+              ) : (
+                <></>
+              )}
             </Menu>
           </Box>
 
