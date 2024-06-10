@@ -34,7 +34,7 @@ const Dashboard = () => {
   const handleGoBack = async () => {
     console.log("HI");
     const response = await axios.get(
-      `http://localhost:5000/parent?userId=${user?.userId}&currentFolderId=${currentFolder.folderId}`,
+      `${process.env.REACT_APP_URL}parent?userId=${user?.userId}&currentFolderId=${currentFolder.folderId}`,
       {
         headers: {
           "x-access-token": sessionStorage.getItem("authToken"),
